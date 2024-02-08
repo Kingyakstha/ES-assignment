@@ -1,7 +1,0 @@
-v 4
-file . "muxTB.vhdl" "6cde889bf359d28e43f3d741776c60bb980bfa0c" "20240208090704.037":
-  entity mux_tb at 2( 1) + 0 on 13;
-  architecture mux_arch of mux_tb at 8( 76) + 0 on 14;
-file . "mux.vhdl" "975e822f26fedc679b79894a3d26fc75ebb9f037" "20240208090704.028":
-  entity mux at 1( 0) + 0 on 11;
-  architecture mux_arch of mux at 11( 124) + 0 on 12;
