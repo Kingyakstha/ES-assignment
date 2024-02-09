@@ -54,6 +54,12 @@ begin
         a <= '1'; 
         wait for 10 ns;
         a <= '0'; 
+        wait for 10 ns;
+        a <= '1';
+        wait for 10 ns;
+        a <= '1'; 
+        wait for 10 ns;
+        a <= '0'; 
         -- insert stimulus here 
 
         wait;

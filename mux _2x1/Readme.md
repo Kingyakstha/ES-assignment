@@ -1,0 +1,1 @@
+(2072, Magh) Write VHDL code for 2-input multiplexer. [6]
