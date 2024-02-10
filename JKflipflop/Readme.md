@@ -1,0 +1,1 @@
+(2078, Poush) Write a VHDL code for a JK flipflop using PROCESS.[4]
