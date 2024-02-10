@@ -7,13 +7,13 @@ entity gcd_tb  is
 architecture behavior_gcd of gcd_tb is 
 signal clk, rst: std_logic;
 signal a, b, gcd: integer;
-component GCD_C 
+component greatest 
 	port(clk, rst : IN STD_LOGIC;
 	    a, b: IN INTEGER;
 	    gcd : OUT INTEGER);
 END COMPONENT;
 BEGIN
-GCD_1 : GCD_C port map(clk=> clk, rst=>  rst, a=>a, b=>b, gcd=>gcd);
+GCD_1 : greatest port map(clk=> clk, rst=>  rst, a=>a, b=>b, gcd=>gcd);
 clock: process
 begin
 	clk<= '1';
@@ -44,6 +44,3 @@ begin
 	WAIT;
 end process;
 end behavior_gcd;
-
-
-

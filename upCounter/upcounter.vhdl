@@ -1,36 +1,69 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity upcounter_tb is
-end upcounter_tb;
+entity upcounter is
+    port ( t, clk, rst : in std_logic;
+           q : out std_logic);
+end upcounter;
 
-architecture upcounter_arch of upcounter_tb is
-    component upcounter is 
-        port (
-            clk, rst: in std_logic;
-            q: out std_logic_vector(2 downto 0)
-        );
+architecture upcounter_arch of upcounter is
+    signal q_temp : std_logic;
+begin
+    process (clk, rst)
+    begin
+        if rst = '1' then
+            q_temp <= '0';   
+        elsif rising_edge(clk) then
+            if t = '1' then
+                q_temp <= not q_temp; 
+            else
+                q_temp <= q_temp;  
+            end if;
+        end if;
+    end process;
+
+    q <= q_temp; 
+end upcounter_arch;
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity and_g is
+    port ( a, b : in std_logic;
+           z : out std_logic);
+end and_g;
+
+architecture and_g_arch of and_g is
+begin
+    z <= a and b;
+end and_g_arch;
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity up_counter is
+    port ( clk, rst : in std_logic;
+           q : out std_logic_vector(2 downto 0));
+end up_counter;
+
+architecture up_counter_arch of up_counter is
+    component and_g is 
+        port (a, b : in std_logic;
+              z : out std_logic);
+    end component and_g;
+
+    component upcounter is
+        port (t, clk, rst : in std_logic;
+              q : out std_logic);
     end component upcounter;
 
-    signal clk, rst: std_logic := '0';
-    signal q: std_logic_vector(2 downto 0);
+    signal qa, qb, qc, tc: std_logic;
 
 begin
-    --counter1:upcounter port map (clk => clk, rst => rst, q => q);
-
-    process
-    begin
-        clk <= '0';
-        wait for 5 ns;
-        clk <= '1';
-        wait for 5 ns;
-    end process;
-
-    process
-    begin
-        rst <= '1';
-        wait for 10 ns;
-        rst <= '0';
-        wait for 80 ns;
-    end process;
-end upcounter_arch;
+    t1: upcounter port map(t => '1', clk => clk, rst => rst, q => qa);
+    t2: upcounter port map(t => qa, clk => clk, rst => rst, q => qb);
+    a1: and_g port map(a => qa, b => qb, z => tc);
+    t3: upcounter port map(t => tc, clk => clk, rst => rst, q => q(2));
+    q(0) <= '1' when qa = '1' else '0';
+    q(1) <= '1' when qb = '1' else '0';
+end up_counter_arch;
