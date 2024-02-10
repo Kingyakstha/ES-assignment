@@ -38,7 +38,7 @@ case currentstate is
    -- "1"
         nextstate <= q1;
     else
-        neatstate <= q0;
+        nextstate <= q0;
     end if;
     
     when q1 =>
