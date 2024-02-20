@@ -16,11 +16,15 @@ begin
         if (rst = '1') then
             output := '0';
         elsif (rising_edge(clk)) then
-            if (j /= k) then
-                output := j;
-            elsif (j = '1' and k = '1') then
-                output := not output;
-            end if;
+            if j = '0' and k = '0' then
+                output := output;
+            elsif j = '0' and k = '1' then
+                output := '0';
+            elsif j = '1' and k = '0' then
+                output := '1';
+            elsif j = '1' and k = '1' then
+                output := NOT output;
+        end if;
         end if;
         q <= output;
         q_comp <= not output;
