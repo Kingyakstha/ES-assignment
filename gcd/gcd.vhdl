@@ -1,4 +1,4 @@
-ibrary  ieee;
+library  ieee;
 use ieee.std_logic_1164.all;
 
 entity  greatest is
@@ -8,7 +8,7 @@ entity  greatest is
 end greatest;
 
 architecture behavior_gcd of greatest is
-type state is (start, input, output, check, check1,update_x,  update_y);
+type state is (start, input, output, check, check1);
 signal current_state, next_state: state;
 begin
 state_reg:Process(clk, rst)
@@ -31,11 +31,12 @@ begin
 			next_state <= check;
 		WHEN check =>
 			if(x< y) THEN
-				next_state <= update_x;
-			else
-				next_state <= update_y;
+                p:=x;
+                x:=y;
+                y:=p;
+                next_state <= check1;
 			END IF;
-      next_state <= check1;
+            next_state <= check1;
 		WHEN  check1 =>
 			while y /= 0 loop
 				r:= x mod y;
@@ -43,13 +44,6 @@ begin
 				y:= r;
 			end loop;
 			next_state <= output;
-		WHEN update_x =>
-			p:=x;
-			x:=y;
-			y:=p;
-		when update_y =>
-			x:=x;
-			y:=y;
 		WHEN output =>
 			GCD <= 	x;
 			next_state <= start;

@@ -24,39 +24,39 @@ begin
     clk_process: process
     begin
         clk <= '0';
-        wait for 240 ns;
+        wait for 100 ns;
 
         clk <= '1';
-        wait for 240 ns;
+        wait for 100 ns;
     end process clk_process;
 
     stimulus_process: process
     begin
         rst <= '1';
         wait for 10 ns;
-
+        
         rst <= '0';
         wait for 10 ns;
-
+        
         -- test case 1
         j <= '0';
         k <= '0';
-        wait for 240 ns;
-
+        wait for 200 ns;
+        
         -- test case 2
         j <= '0';
         k <= '1';
-        wait for 240 ns;
-
+        wait for 200 ns;
+        
         -- test case 3
         j <= '1';
         k <= '0';
-        wait for 240 ns;
-
+        wait for 200 ns;
+        
         -- test case 4
         j <= '1';
         k <= '1';
-        wait for 240 ns;
+        wait for 200 ns;
 
         wait;
     end process stimulus_process;

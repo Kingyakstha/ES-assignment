@@ -10,7 +10,7 @@ entity fsm_lcm is
 end entity fsm_lcm;
 
 architecture behavior of fsm_lcm is
-    type state is (start, input, output, check, check1, updatex, updatey);
+    type state is (start, input, output, check, check1);
     signal current_state, next_state: state;
 begin
     state_register: process (clk, reset)
@@ -35,9 +35,9 @@ begin
                 next_state <= check;
             when check =>
                 if x < y then
-                    next_state <= updatex;
-                else
-                    next_state <= updatey;
+                    p := x;
+                    x := y;
+                    y := p;
                 end if;
                 next_state <= check1;
             when check1 =>
@@ -47,13 +47,6 @@ begin
                     y := r;
                 end loop;
                 next_state <= output;
-            when updatex =>
-                p := x;
-                x := y;
-                y := p;
-            when updatey =>
-                x := x;
-                y := y;
             when output =>
                 lcm <= z / x;
                 next_state <= start;
